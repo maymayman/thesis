@@ -1,39 +1,55 @@
 const { Users } = require('../models');
-module.exports = {
-	create: async function(data) {
-		try {
-			const userModel = new Users(data);
 
-			const user = await userModel.save();
+const create = async function(data) {
+	try {
+		const userModel = new Users(data);
 
-			return user;
-		} catch(error) {
-			
-			console.error('+++++++++++++++++++');
-			// console.error(error, '+++++++++++++++++++');
-			console.error(error.message, '+++++++++++', error.path);
-			for (let key in error) {
-				console.log(key, '-------------', error[key]);
-			}
-			console.error('+++++++++++++++++++');
-			console.log(error.name);
-			return HandleError(error);
-			// throw new Error(error.message);
-		}
-	},
+		const user = await userModel.save();
 
-	getById: async function(_id) {
-		try {
-			const user = await Users.findById(_id);
-
-			if (user) {
-				user.password = undefined;
-			}
-
-			return user;
-		} catch(error) {
-			console.error(error);
-			throw new Error(error.message);
-		}
+		return user;
+	} catch(error) {
+		return HandleError(error);
 	}
-}
+};
+
+const getById = async function(_id) {
+	try {
+		const user = await Users.findById(_id);
+
+		if (user) {
+			user.password = undefined;
+		}
+
+		return user;
+	} catch(error) {
+		return HandleError(error);
+	}
+};
+
+const authUser = async function(username, password) {
+	try {
+		const user = await Users.findOne({username: username});
+
+		if (!user) {
+			return HandleError(ErrorCode.USER_NOT_EXISTS);
+		}
+
+		const authentication = await user.comparePassword(password);
+
+		if (!authentication) {
+			return HandleError(ErrorCode.USER_NAME_OR_PASSWORD_INVALID);
+		}
+
+		user.password = undefined;
+
+		return user;
+	} catch(error) {
+		return HandleError(error);
+	}
+};
+
+module.exports = {
+	create,
+	getById,
+	authUser
+};

@@ -6,6 +6,13 @@ module.exports = {
 			GUEST: 'GUEST',
 			CUSTOMER: 'CUSTOMER',
 			ADVISER: 'ADVISER'
+		},
+		STATUS: {
+			APPROVED: 'APPROVED'
+		},
+		GENDER: {
+			MALE: 'MALE',
+			FEMALE: 'FEMALE'
 		}
 	}
-}
+};
