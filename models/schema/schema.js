@@ -1,4 +1,4 @@
-const { STATUS } = require('../../config/const').USER;
+const { STATUS, ROLE } = require('../../config/const').USER;
 
 const validateEmail = function(email) {
     const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -10,7 +10,7 @@ module.exports = {
         username: { type: String , unique: true, required: true },
         password: { type: String , required: true},
         status: { type: String , required: true, default: STATUS.APPROVED },
-        role: { type: String , required: true },
+        role: { type: String , required: true, default: ROLE.CUSTOMER },
         firstName: { type: String  },
         lastName: { type: String  },
         birthDay: { type: Date },

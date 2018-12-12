@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "development": "pm2 startOrReload process.deploy.json --update-env development",
+    "production": "pm2 startOrReload process.deploy.json --update-env --env production",
+    "stop": "pm2 stop process.deploy.json"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

@@ -1,0 +1,20 @@
+
+{
+  "apps" : [
+    {
+      "name"        : "THESIS",
+      "script"      : "./bin/www",
+      "watch"       : true,
+      "instances"   : 1,
+      "exec_mode"   : "cluster",
+      "env": {
+        "ENV": "development",
+        "PORT"    : 1337,
+      },
+      "env_production" : {
+        "ENV": "production",
+        "PORT"    : 1337,
+      }
+    }
+  ]
+}

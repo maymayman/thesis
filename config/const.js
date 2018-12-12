@@ -8,7 +8,8 @@ module.exports = {
 			ADVISER: 'ADVISER'
 		},
 		STATUS: {
-			APPROVED: 'APPROVED'
+			APPROVED: 'APPROVED',
+			DELETED: 'DELETED'
 		},
 		GENDER: {
 			MALE: 'MALE',

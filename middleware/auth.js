@@ -17,7 +17,7 @@ module.exports = function auth(req, res, next) {
         return ResponeError(req, res, err, ErrorCode.JWT_EXPIRED);
       }
 
-      getById(decoded['_id']).then((currentUser) => {
+      findById(decoded['_id']).then((currentUser) => {
         currentUser.password = undefined;
         req.user = currentUser;
         return next();

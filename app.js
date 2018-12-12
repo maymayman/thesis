@@ -22,6 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(require('./middleware/auth'));
 
 app.use('/', indexRouter);
@@ -37,6 +38,8 @@ app.use(function(req, res, next) {
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
+
+  res.setHeader('Content-Type', 'application/json');
 
   next();
 });
