@@ -30,7 +30,7 @@ module.exports = {
     information: {
       nameCompany: {type: String},
       address: {type: String},
-      taxCode: {type: Number}
+      taxCode: {type: String}
     }
     
   }
