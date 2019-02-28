@@ -10,7 +10,7 @@ module.exports = {
 		},
 		STATUS: {
 			ACTIVE: 'ACTIVE',
-			DEACTIVE: 'DEACTIVE'
+			DEACTIVE: 'INACTIVE'
 		},
 		GENDER: {
 			MALE: 'MALE',
