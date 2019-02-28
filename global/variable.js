@@ -13,6 +13,8 @@ ErrorCode = {
   USER_GENDER_INVALID: 1009,
   USER_NOT_EXISTS: 1010,
   USER_NAME_OR_PASSWORD_INVALID: 1011,
+  TYPE_USER_INVALID: 1012,
+  USER_COMPANY_INVALID: 1013,
 
   AUTHENTICATE: 1999,
 }
@@ -30,5 +32,7 @@ ErrorMessage = {
   [ErrorCode.USER_GENDER_INVALID]: 'user`s gender invalid',
   [ErrorCode.AUTHENTICATE]: 'uauthenticate failed',
   [ErrorCode.USER_NOT_EXISTS]: 'user`s account not exists',
-  [ErrorCode.USER_NAME_OR_PASSWORD_INVALID]: 'username or password invalid'
+  [ErrorCode.USER_NAME_OR_PASSWORD_INVALID]: 'username or password invalid',
+  [ErrorCode.TYPE_USER_INVALID]: 'type of user invalid',
+  [ErrorCode.USER_COMPANY_INVALID]: 'company do not blank'
 }

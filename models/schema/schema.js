@@ -9,8 +9,9 @@ module.exports = {
     users: {
         username: { type: String , unique: true, required: true },
         password: { type: String , required: true},
-        status: { type: String , required: true, default: STATUS.APPROVED },
+        status: { type: String , required: true, default: STATUS.ACTIVE },
         role: { type: String , required: true },
+        type: { type: String , required: true },
         firstName: { type: String  },
         lastName: { type: String  },
         birthDay: { type: Date },
@@ -25,6 +26,8 @@ module.exports = {
         },
         phoneNumber: { type: String },
         gender: { type: String , required: true },
-        position: { type: String }
+        position: { type: String },
+        company: { type: String }
+        
     }
 };

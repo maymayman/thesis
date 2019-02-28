@@ -27,20 +27,29 @@ const create = async function(req, res) {
 const validateUser = function(body) {
 	let data = {};
 	let error = null;
-	if (!body.username) {
-		error = ErrorCode.USER_NAME_INVALID;
-	}
-	if (!body.password) {
-		error = ErrorCode.USER_PASSWORD_INVALID;
-	}
-	if (!body.role || indexOf(values(ROLE), body.role) < 0) {
-		error = ErrorCode.USER_ROLE_INVALID;
-	}
-	if (!body.email || !validateEmail(body.email)) {
-		error = ErrorCode.USER_EMAIL_INVALID;
-	}
-	if (!body.gender || indexOf(values(GENDER), body.gender) < 0) {
-		error = ErrorCode.USER_GENDER_INVALID;
+	let type = body.type;
+  if (!body.type && (body.type != 'company' || body.type != 'normal')) {
+    error = ErrorCode.TYPE_USER_INVALID;
+  }
+  if (!body.username) {
+    error = ErrorCode.USER_NAME_INVALID;
+  }
+  if (!body.password) {
+    error = ErrorCode.USER_PASSWORD_INVALID;
+  }
+  if (!body.email || !validateEmail(body.email)) {
+    error = ErrorCode.USER_EMAIL_INVALID;
+  }
+  if (type == "company") {
+    if (!body.role || indexOf(values(ROLE), body.role) < 0) {
+      error = ErrorCode.USER_ROLE_INVALID;
+    }
+    if (!body.gender || indexOf(values(GENDER), body.gender) < 0) {
+      error = ErrorCode.USER_GENDER_INVALID;
+    }
+    if (!body.company) {
+      error = ErrorCode.USER_COMPANY_INVALID;
+    }
 	}
 
 	if (!error) {
