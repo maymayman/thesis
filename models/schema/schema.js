@@ -28,8 +28,8 @@ module.exports = {
     gender: {type: String},
     position: {type: String},
     information: {
-      nameCompany: {type: String, default: ''},
-      address: {type: String, default: ''},
+      nameCompany: {type: String},
+      address: {type: String},
       taxCode: {type: Number}
     }
     
