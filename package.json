@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "jest"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -18,5 +19,10 @@
     "dotenv": "~6.1.0",
     "bcrypt": "~3.0.2",
     "lodash": "~4.17.11"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "jest-html-reporter": "^2.4.4",
+    "jest-junit": "^5.1.0"
   }
 }

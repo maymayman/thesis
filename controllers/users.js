@@ -37,11 +37,8 @@ const validateUser = function (body) {
   if (!body.email || !validateEmail(body.email)) {
     error = ErrorCode.USER_EMAIL_INVALID;
   }
-  if (!body.role || indexOf(values(ROLE), body.role) < 0) {
+  if (!body.role || (indexOf(values(ROLE), body.role) < 0)) {
     error = ErrorCode.USER_ROLE_INVALID;
-  }
-  if (!body.gender || indexOf(values(GENDER), body.gender) < 0) {
-    error = ErrorCode.USER_GENDER_INVALID;
   }
   if (body.role == 'COMPANY') {
     if (!body.information && !body.information.nameCompany) {
