@@ -2,6 +2,7 @@ const userService = require('../service/users.js');
 const {indexOf, values} = require('lodash');
 const {ROLE, GENDER} = require('../config/const.js').USER;
 const {validateEmail} = require('../helper/utils.js');
+const {validateUserName} = require('../helper/utils.js');
 const usesSchema = require('../models/schema/schema.js').users;
 
 const create = async function (req, res) {
@@ -28,7 +29,7 @@ const validateUser = function (body) {
   let data = {};
   let error = null;
   
-  if (!body.username) {
+  if (!body.username || !validateUserName(body.username)) {
     error = ErrorCode.USER_NAME_INVALID;
   }
   if (!body.password) {
