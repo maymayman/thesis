@@ -47,6 +47,15 @@ module.exports = {
     userDonate:[],
     donations: {type: Number},
     totalMoney: {type: Number},
-    created_at:{type: Date}
+    created_at:{type: Date},
+    countryId:{type: String},
+    missingMoney:{type: Number},
+  },
+  
+  country:{
+    id: {type: String,unique: true, required: true},
+    name: {type: String, required: true},
+    continents: {type: String},
+    created_at:{type: Date},
   }
 };
