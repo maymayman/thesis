@@ -3,4 +3,4 @@ const router = express.Router();
 
 router.use('/users', require('./version1/users'));
 
-module.exports = router
+module.exports = router;
