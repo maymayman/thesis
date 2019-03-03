@@ -15,6 +15,7 @@ ErrorCode = {
   USER_NAME_OR_PASSWORD_INVALID: 1011,
   TYPE_USER_INVALID: 1012,
   USER_COMPANY_INVALID: 1013,
+  PERMISSION_DENIED: 1014,
 
   AUTHENTICATE: 1999,
 }
@@ -34,5 +35,6 @@ ErrorMessage = {
   [ErrorCode.USER_NOT_EXISTS]: 'user`s account not exists',
   [ErrorCode.USER_NAME_OR_PASSWORD_INVALID]: 'username or password invalid',
   [ErrorCode.TYPE_USER_INVALID]: 'type of user invalid',
-  [ErrorCode.USER_COMPANY_INVALID]: 'company do not blank'
+  [ErrorCode.USER_COMPANY_INVALID]: 'company do not blank',
+  [ErrorCode.PERMISSION_DENIED]: 'permission denied'
 }
