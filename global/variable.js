@@ -16,6 +16,10 @@ ErrorCode = {
   TYPE_USER_INVALID: 1012,
   USER_COMPANY_INVALID: 1013,
   PERMISSION_DENIED: 1014,
+  PROJECT_TITLE_INVALID: 1015,
+  COUNTRY_INVALID: 1016,
+  CATEGORY_INVALID: 1017,
+  CATEGORY_ALREADY_EXISTS: 1018,
 
   AUTHENTICATE: 1999,
 }
@@ -36,5 +40,9 @@ ErrorMessage = {
   [ErrorCode.USER_NAME_OR_PASSWORD_INVALID]: 'username or password invalid',
   [ErrorCode.TYPE_USER_INVALID]: 'type of user invalid',
   [ErrorCode.USER_COMPANY_INVALID]: 'company do not blank',
-  [ErrorCode.PERMISSION_DENIED]: 'permission denied'
+  [ErrorCode.PERMISSION_DENIED]: 'permission denied',
+  [ErrorCode.PROJECT_TITLE_INVALID]: 'title do not blank',
+  [ErrorCode.COUNTRY_INVALID]: 'country invalid',
+  [ErrorCode.CATEGORY_INVALID]: 'category invalid',
+  [ErrorCode.CATEGORY_ALREADY_EXISTS]: 'category is already exists',
 }
