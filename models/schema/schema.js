@@ -32,6 +32,30 @@ module.exports = {
       address: {type: String},
       taxCode: {type: String}
     }
-    
+  },
+  
+  project:{
+    title: {type: String,unique: true, required: true},
+    about: {type: String},
+    status: {type: String, default: STATUS.ACTIVE},
+    personResponsible: {
+      firstName: {type: String},
+      lastName: {type: String},
+      birthday: {type: Date},
+      phone:{type: String},
+    },
+    userDonate:[],
+    donations: {type: Number},
+    totalMoney: {type: Number},
+    created_at:{type: Date},
+    countryId:{type: String},
+    missingMoney:{type: Number},
+  },
+  
+  country:{
+    id: {type: String,unique: true, required: true},
+    name: {type: String, required: true},
+    continents: {type: String},
+    created_at:{type: Date},
   }
 };
