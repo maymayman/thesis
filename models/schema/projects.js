@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const projects = {
-  title: {type: String,unique: true, required: true},
+  title: {type: String, required: true},
   about: {type: String},
   status: {type: String, default: STATUS.ACTIVE},
   personResponsible: {
@@ -15,7 +15,6 @@ const projects = {
     phone:{type: String},
   },
   donationsCount: {type: Number, default: 0},
-  totalMoney: {type: Number},
   amount:{type: Number},
   percent:{type: Number},
   minPercentSell:{type: Number},

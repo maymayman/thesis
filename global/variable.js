@@ -20,7 +20,9 @@ ErrorCode = {
   COUNTRY_INVALID: 1016,
   CATEGORY_INVALID: 1017,
   CATEGORY_ALREADY_EXISTS: 1018,
-
+  COUNTRY_ALREADY_EXISTS: 1019,
+  
+  
   AUTHENTICATE: 1999,
 }
 
@@ -45,4 +47,5 @@ ErrorMessage = {
   [ErrorCode.COUNTRY_INVALID]: 'country invalid',
   [ErrorCode.CATEGORY_INVALID]: 'category invalid',
   [ErrorCode.CATEGORY_ALREADY_EXISTS]: 'category is already exists',
+  [ErrorCode.COUNTRY_ALREADY_EXISTS]: 'country is already exists',
 }

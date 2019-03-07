@@ -1,5 +1,5 @@
-const connections = require('../../config/mongodb').master;
 const {STATUS} = require('../../config/const').USER;
+const connections = require('../../config/mongodb').master;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
