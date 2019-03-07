@@ -36,7 +36,7 @@ const validateUser = function (body) {
     error = ErrorCode.USER_PASSWORD_INVALID;
   }
   if (!body.email || !validateEmail(body.email)) {
-    error = ErrorCode.USER_EMAIL_INVALID;
+    error = ErrorCode.EMAIL_INVALID;
   }
   if (!body.role || (indexOf(values(ROLE), body.role) < 0)) {
     error = ErrorCode.USER_ROLE_INVALID;

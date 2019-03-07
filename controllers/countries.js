@@ -1,5 +1,4 @@
 const CountriesService = require('../service/countries');
-const CountriesSchema = require('../models/schema/countries');
 
 const getCountries = async function (req, res) {
   try {
@@ -18,11 +17,13 @@ const createCountries = async function (req, res) {
     const data = req.body;
     const user = req.user;
     
-    if(!data || !user || user.role != 'ADMIN'){
-      return ResponeError(req, res, null, ErrorCode.PERMISSION_DENIED);
+    const {result, error } = await CountriesService.validateCountry(data, user);
+  
+    if (error) {
+      return ResponeError(req, res, null, error);
     }
     
-    const country = await CountriesService.createCoun(data);
+    const country = await CountriesService.createCoun(result);
     
     return ResponeSuccess(req, res, {country});
     

@@ -25,7 +25,40 @@ const createCoun = async function(country) {
   }
 };
 
+const validateCountry = async function (data, user) {
+  try {
+    let error = null;
+    let result = {};
+    
+    if (user.role != 'ADMIN') {
+      error = ErrorCode.PERMISSION_DENIED;
+    }
+    
+    if (!data.name) {
+      error = ErrorCode.COUNTRY_INVALID;
+    } else {
+      
+      const country = await Countries.findOne({name: data.name});
+      if (country || (country && country._id)) {
+        error = ErrorCode.COUNTRY_ALREADY_EXISTS;
+      }
+    }
+    if (!error) {
+      result = {
+        name: data.name
+      }
+    }
+    
+    return {result, error};
+    
+  } catch (error) {
+    
+    return HandleError(error);
+  }
+};
+
 module.exports = {
   getCoun,
   createCoun,
+  validateCountry
 };
