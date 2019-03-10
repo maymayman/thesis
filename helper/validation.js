@@ -2,6 +2,20 @@ const { Countries } = require('../models');
 const { Categories } = require('../models');
 const { Projects } = require('../models');
 
+const CalculateAmount = function(project, percentDonate){
+  try {
+    const totalPercent = project.percent;
+    const totalAmount = project.amount;
+    const onePercent = totalAmount/totalPercent;
+    
+    return onePercent * percentDonate;
+    
+  }catch (error) {
+    
+    return HandleError(error);
+  }
+};
+
 const validateCountry = async function (data, user) {
   try {
     let error = null;
@@ -117,6 +131,54 @@ const validateProject = async function (data, user) {
         },
         donationsCount: data.donationsCount || 0,
         amount: data.amount || 0,
+        percent: data.percent || 0,
+      }
+    }
+    
+    return {result, error};
+    
+  } catch (error) {
+    
+    return HandleError(error);
+    
+  }
+};
+
+const validateDonate = async function (data, user) {
+  try {
+    let error = null;
+    let result = {};
+    let project = {};
+    
+    if (user.role != 'GUEST') {
+      error = ErrorCode.USER_ROLE_INVALID;
+    }
+    
+    if (!data.projectId) {
+      error = ErrorCode.PROJECT_TITLE_INVALID;
+    }else {
+      project = await Projects.findById({_id: data.projectId});
+      if (!project) {
+        error = ErrorCode.PROJECT_DOES_NOT_EXISTS
+      }
+    }
+    
+    if (!data.percent) {
+      error = ErrorCode.MISSING_PERCENT_DONATE;
+    } else {
+      if ((data.percent > project.percent) || (data.percent < project.minPercentSell)){
+        error = ErrorCode.PERCENT_DONATE_INVALID;
+      }
+    }
+    
+    if (!error) {
+      let amountCalculated = await CalculateAmount(project, data.percent);
+      result = {
+        userId: user._id,
+        projectId: data.projectId,
+        percent : data.percent,
+        amount : amountCalculated ,
+        note: data.note || '',
       }
     }
     
@@ -133,5 +195,6 @@ const validateProject = async function (data, user) {
 module.exports = {
   validateCountry,
   validateCategory,
-  validateProject
+  validateProject,
+  validateDonate,
 };

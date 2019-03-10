@@ -24,6 +24,10 @@ ErrorCode = {
   COUNTRY_ALREADY_EXISTS: 1020,
   COUNTRY_DOES_NOT_EXISTS: 1021,
   PROJECT_DOES_NOT_EXISTS: 1022,
+  MISSING_MONEY_DONATE: 1023,
+  MISSING_PERCENT_DONATE: 1024,
+  PERCENT_DONATE_INVALID: 1025,
+  MISSING_USER_DONATE: 1026,
   
   
   AUTHENTICATE: 1999,
@@ -54,4 +58,8 @@ ErrorMessage = {
   [ErrorCode.CATEGORY_DOES_NOT_EXISTS]: 'category does not exists',
   [ErrorCode.COUNTRY_DOES_NOT_EXISTS]: 'country does not exists',
   [ErrorCode.PROJECT_DOES_NOT_EXISTS]: 'project does not exists',
-}
+  [ErrorCode.MISSING_MONEY_DONATE]: 'missing money to donate',
+  [ErrorCode.MISSING_PERCENT_DONATE]: 'missing percent to donate',
+  [ErrorCode.PERCENT_DONATE_INVALID]: 'percent donate invalid',
+  [ErrorCode.MISSING_USER_DONATE]: 'missing user donate',
+};
