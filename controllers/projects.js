@@ -1,9 +1,10 @@
 const projectsService = require('../service/projects');
+const {validateProject} = require('../helper/validation');
 
 
-const getProjects = async function (req, res) {
+const getAll = async function (req, res) {
   try {
-    const projects = await projectsService.getPro();
+    const projects = await projectsService.getAll();
     
     return ResponeSuccess(req, res, {projects});
     
@@ -13,18 +14,18 @@ const getProjects = async function (req, res) {
   }
 };
 
-const createProjects = async function (req, res) {
+const create = async function (req, res) {
   try {
     const data = req.body;
     const user = req.user;
     
-    const {result, error} = await projectsService.validateProject(data, user);
+    const {result, error} = await validateProject(data, user);
     
     if (error) {
       return ResponeError(req, res, null, error);
     }
     
-    const project = await projectsService.createPro(result);
+    const project = await projectsService.create(result);
     
     return ResponeSuccess(req, res, {project});
     
@@ -34,8 +35,31 @@ const createProjects = async function (req, res) {
   }
 };
 
+const update = async function (req, res) {
+  try {
+    const body = req.body;
+    const user = req.user;
+    const _id = req.params._id;
+    
+    const {result, error} = await validateProject(body, user);
+    
+    if (error) {
+      return ResponeError(req, res, null, error);
+    }
+    
+    const dataUpdated = await projectsService.update(_id, result);
+    
+    return ResponeSuccess(req, res, {dataUpdated});
+    
+  } catch (error) {
+    
+    return ResponeError(req, res, error, error.message);
+  }
+};
+
 
 module.exports = {
-  getProjects,
-  createProjects,
+  getAll,
+  create,
+  update
 };

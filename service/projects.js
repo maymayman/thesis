@@ -1,8 +1,9 @@
 const { Projects } = require('../models');
-const { Countries } = require('../models');
-const { Categories } = require('../models');
+const {checkExitsProject} = require('../helper/utils.js');
+const {checkExitsCategory} = require('../helper/utils.js');
+const {checkExitsCountry} = require('../helper/utils.js');
 
-const getPro = async function() {
+const getAll = async function() {
   try {
     
     const listProjects = await Projects.find({});
@@ -14,7 +15,7 @@ const getPro = async function() {
   }
 };
 
-const createPro = async function(category) {
+const create = async function(category) {
   try {
     const ProjectsModel = new Projects(category);
     
@@ -27,69 +28,32 @@ const createPro = async function(category) {
   }
 };
 
-const validateProject = async function (data, user) {
+
+const update = async function (_id, data) {
   try {
-    let error = null;
-    let result = {};
-    
-    if (user.role != 'COMPANY' || !user.information || !user.information.nameCompany) {
-      error = ErrorCode.USER_COMPANY_INVALID;
+    const project = await Projects.findById(_id);
+  
+    if (!project) {
+      return HandleError(ErrorCode.PROJECT_DOES_NOT_EXISTS);
     }
-    
-    if (!data.title) {
-      error = ErrorCode.PROJECT_TITLE_INVALID;
-    }
-    
-    if (!data.countryId) {
-      error = ErrorCode.COUNTRY_INVALID;
-    } else {
-      const country = await Countries.findOne({_id: data.countryId});
-      if (!country || !country._id) {
-        error = ErrorCode.COUNTRY_INVALID;
-      }
-    }
-    
-    if (!data.categoryId) {
-      error = ErrorCode.CATEGORY_INVALID;
-    } else {
-      const category = await Categories.findOne({_id: data.categoryId});
-      if (!category || !category._id) {
-        error = ErrorCode.CATEGORY_INVALID;
-      }
-    }
-    
-    if (!data.personResponsible){
-      data.personResponsible = {};
-    }
-    
-    if (!error) {
-      result = {
-        title: data.title,
-        countryId: data.countryId,
-        categoryId : data.categoryId,
-        about : data.about || '',
-        personResponsible: {
-          firstName: data.personResponsible.firstName || '',
-          lastName: data.personResponsible.lastName || '',
-          birthday: data.personResponsible.birthday || '',
-          phone: data.personResponsible.phone || ''
-        },
-        donationsCount: data.donationsCount || 0,
-        amount: data.amount || 0,
-      }
-    }
-    
-    return {result, error};
-    
+  
+    project.set(data);
+  
+    const projectUpdated = await project.save();
+  
+    return projectUpdated;
+  
+  
   } catch (error) {
-    
-    return ResponeError(req, res, error, error.message);
+  
+    return HandleError(error);
   }
 };
 
 
+
 module.exports = {
-  getPro,
-  createPro,
-  validateProject
+  getAll,
+  create,
+  update,
 };

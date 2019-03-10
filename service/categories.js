@@ -1,56 +1,44 @@
-const { Categories } = require('../models');
+const {Categories} = require('../models');
 
-const getCate = async function() {
+const getAll = async function () {
   try {
     
     const listCategories = await Categories.find({});
     
     return listCategories;
     
-  }catch (error) {
+  } catch (error) {
     return HandleError(error);
   }
 };
 
-const createCate = async function(category) {
+const create = async function (category) {
   try {
     const categoriesModel = new Categories(category);
     
-    const categorySaved= await categoriesModel.save();
+    const categorySaved = await categoriesModel.save();
     
     return categorySaved;
     
-  }catch (error) {
+  } catch (error) {
     return HandleError(error);
   }
 };
 
-const validateCategory = async function (data, user) {
+
+const update = async function (_id, data) {
   try {
-    let error = null;
-    let result = {};
-    
-    if (user.role != 'ADMIN') {
-      error = ErrorCode.PERMISSION_DENIED;
+    const category = await Categories.findById(_id);
+  
+    if (!category) {
+      return HandleError(ErrorCode.CATEGORY_DOES_NOT_EXISTS);
     }
-    
-    if (!data.name) {
-      error = ErrorCode.CATEGORY_INVALID;
-    } else {
-      
-      const category = await Categories.findOne({name: data.name});
-      if (category || (category && category._id)) {
-        error = ErrorCode.CATEGORY_ALREADY_EXISTS;
-      }
-    }
-    if (!error) {
-        result = {
-        name: data.name
-      }
-    }
-    
-    return {result, error};
-    
+  
+    category.set(data);
+  
+    const categoryUpdated = await category.save();
+  
+    return categoryUpdated;
   } catch (error) {
     
     return HandleError(error);
@@ -58,7 +46,7 @@ const validateCategory = async function (data, user) {
 };
 
 module.exports = {
-  getCate,
-  createCate,
-  validateCategory
+  getAll,
+  create,
+  update,
 };

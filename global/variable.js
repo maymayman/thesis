@@ -20,7 +20,10 @@ ErrorCode = {
   COUNTRY_INVALID: 1016,
   CATEGORY_INVALID: 1017,
   CATEGORY_ALREADY_EXISTS: 1018,
-  COUNTRY_ALREADY_EXISTS: 1019,
+  CATEGORY_DOES_NOT_EXISTS: 1019,
+  COUNTRY_ALREADY_EXISTS: 1020,
+  COUNTRY_DOES_NOT_EXISTS: 1021,
+  PROJECT_DOES_NOT_EXISTS: 1022,
   
   
   AUTHENTICATE: 1999,
@@ -48,4 +51,7 @@ ErrorMessage = {
   [ErrorCode.CATEGORY_INVALID]: 'category invalid',
   [ErrorCode.CATEGORY_ALREADY_EXISTS]: 'category is already exists',
   [ErrorCode.COUNTRY_ALREADY_EXISTS]: 'country is already exists',
+  [ErrorCode.CATEGORY_DOES_NOT_EXISTS]: 'category does not exists',
+  [ErrorCode.COUNTRY_DOES_NOT_EXISTS]: 'country does not exists',
+  [ErrorCode.PROJECT_DOES_NOT_EXISTS]: 'project does not exists',
 }

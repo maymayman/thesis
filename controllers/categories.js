@@ -1,8 +1,9 @@
 const categoriesService = require('../service/categories');
+const {validateCategory} = require('../helper/validation.js');
 
-const getCategories = async function (req, res) {
+const getAll = async function (req, res) {
   try {
-    const categories = await categoriesService.getCate();
+    const categories = await categoriesService.getAll();
     
     return ResponeSuccess(req, res, {categories});
     
@@ -12,17 +13,17 @@ const getCategories = async function (req, res) {
   }
 };
 
-const createCategories = async function (req, res) {
+const create = async function (req, res) {
   try {
     let user = req.user;
     let data = req.body;
-    const {result, error} = await categoriesService.validateCategory(data, user);
+    const {result, error} = await validateCategory(data, user);
   
     if (error) {
       return ResponeError(req, res, null, error);
     }
     
-    const category = await categoriesService.createCate(result);
+    const category = await categoriesService.create(result);
     
     return ResponeSuccess(req, res, {category});
     
@@ -32,7 +33,30 @@ const createCategories = async function (req, res) {
   }
 };
 
+const update = async function (req, res) {
+  try {
+    let user = req.user;
+    let _id = req.params._id;
+    let body = req.body;
+    
+    const {result, error} = await validateCategory(body, user);
+  
+    if (error) {
+      return ResponeError(req, res, null, error);
+    }
+    
+    const dataUpdated = await categoriesService.update(_id, result);
+    
+    return ResponeSuccess(req, res, {dataUpdated});
+    
+  } catch (error) {
+    
+    return ResponeError(req, res, error, error.message);
+  }
+};
+
 module.exports = {
-  getCategories,
-  createCategories,
+  getAll,
+  create,
+  update,
 };
