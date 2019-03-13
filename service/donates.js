@@ -3,7 +3,7 @@ const {Donates} = require('../models');
 const getDonate = async function (projectId) {
   try{
     
-    const donate = await Donates.findOne({_id: projectId});
+    const donate = await Donates.findOne({projectId: projectId});
   
     return donate;
     

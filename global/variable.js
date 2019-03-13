@@ -28,6 +28,8 @@ ErrorCode = {
   MISSING_PERCENT_DONATE: 1024,
   PERCENT_DONATE_INVALID: 1025,
   MISSING_USER_DONATE: 1026,
+  TYPE_COMMENT_INVALID: 1027,
+  COMMENT_NO_EXITS: 1028,
   
   
   AUTHENTICATE: 1999,
@@ -62,4 +64,6 @@ ErrorMessage = {
   [ErrorCode.MISSING_PERCENT_DONATE]: 'missing percent to donate',
   [ErrorCode.PERCENT_DONATE_INVALID]: 'percent donate invalid',
   [ErrorCode.MISSING_USER_DONATE]: 'missing user donate',
+  [ErrorCode.TYPE_COMMENT_INVALID]: 'type comment invalid',
+  [ErrorCode.COMMENT_NO_EXITS]: 'comment no exits',
 };
