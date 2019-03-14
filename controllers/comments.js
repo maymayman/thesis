@@ -19,9 +19,10 @@ const create = async function (req, res) {
   try {
     const data = req.body;
     const projectId = req.params.projectId;
+    const commentId = req.params.commentId || null;
     const user = req.user;
     
-    const {result, error} = await validateComment(projectId, data, user);
+    const {result, error} = await validateComment(commentId, projectId, data, user);
     
     if (error) {
       return ResponeError(req, res, null, error);
@@ -41,15 +42,16 @@ const update = async function (req, res) {
   try {
     const data = req.body;
     const projectId = req.params.projectId;
+    const commentId = req.params.commentId;
     const user = req.user;
-  
-    const {result, error} = await validateComment(projectId, data, user);
+    
+    const {result, error} = await validateComment(commentId, projectId, data, user);
     
     if (error) {
       return ResponeError(req, res, null, error);
     }
     
-    const dataUpdated = await commentsService.update(projectId, result);
+    const dataUpdated = await commentsService.update(commentId, result);
     
     return ResponeSuccess(req, res, {dataUpdated});
     

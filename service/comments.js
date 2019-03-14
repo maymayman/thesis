@@ -3,7 +3,7 @@ const {Comments} = require('../models');
 const getCommentsByProjectId = async function (projectId) {
   try{
     
-    const comments = await Comments.findOne({projectId: projectId});
+    const comments = await Comments.findOne({project: projectId});
     
     return comments;
     
@@ -30,7 +30,7 @@ const create = async function (comment) {
 
 const update = async function (_id, data) {
   try{
-    const comment = await Comments.findById({project: _id, user: data.user});
+    const comment = await Comments.findOne({_id: _id});
   
     if (!comment) {
       return HandleError(ErrorCode.COMMENT_NO_EXITS);

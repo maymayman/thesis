@@ -1,6 +1,7 @@
 const { Countries } = require('../models');
 const { Categories } = require('../models');
 const { Projects } = require('../models');
+const { Comments } = require('../models');
 
 const CalculateAmount = function(project, percentDonate){
   try {
@@ -191,21 +192,32 @@ const validateDonate = async function (data, user) {
   }
 };
 
-const validateComment = async function (projectId, data, user) {
+const validateComment = async function (commentId, projectId, data, user) {
   try {
     let error = null;
     let result = {};
     let project = {};
     let comment = {};
     
-    if (user.role != 'GUEST' || user.role != 'COMPANY') {
+    if (user.role != "GUEST" && user.role != "COMPANY") {
       error = ErrorCode.USER_ROLE_INVALID;
+    }
+    
+    if (data.action == 'update'){
+      if (!commentId){
+        error = ErrorCode.COMMENT_NO_EXITS;
+      }else {
+        comment = await Comments.findById({_id: commentId});
+        if (!comment) {
+          error = ErrorCode.COMMENT_NO_EXITS
+        }
+      }
     }
     
     if (!projectId) {
       error = ErrorCode.PROJECT_TITLE_INVALID;
     }else {
-      project = await Projects.findById({_id: data.projectId});
+      project = await Projects.findById({_id: projectId});
       if (!project) {
         error = ErrorCode.PROJECT_DOES_NOT_EXISTS
       }
@@ -218,7 +230,7 @@ const validateComment = async function (projectId, data, user) {
         if (!data.parentId){
           error = ErrorCode.TYPE_COMMENT_INVALID;
         }else {
-          comment = await Comments.findById({_id: data.parentId})
+          comment = await Comments.findById({_id: data.parentId});
           if (!comment) {
             error = ErrorCode.COMMENT_NO_EXITS;
           }
