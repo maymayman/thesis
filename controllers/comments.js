@@ -3,7 +3,11 @@ const {validateComment} = require('../helper/validation')
 
 const getCmByProjectId = async function (req, res) {
   try {
-    const projectId = req.params.projectId;
+    const projectId = req.query.projectId;
+    
+    if (!projectId ) {
+      return ResponeSuccess(req, res, {});
+    }
     
     const comments = await commentsService.getCommentsByProjectId(projectId);
     
@@ -18,11 +22,13 @@ const getCmByProjectId = async function (req, res) {
 const create = async function (req, res) {
   try {
     const data = req.body;
-    const projectId = req.params.projectId;
-    const commentId = req.params.commentId || null;
+    const projectId = req.query.projectId ? req.query.projectId : '';
     const user = req.user;
     
-    const {result, error} = await validateComment(commentId, projectId, data, user);
+    if (!projectId ) {
+      return ResponeSuccess(req, res, {});
+    }
+    const {result, error} = await validateComment(null, projectId, data, user);
     
     if (error) {
       return ResponeError(req, res, null, error);
@@ -41,8 +47,13 @@ const create = async function (req, res) {
 const update = async function (req, res) {
   try {
     const data = req.body;
-    const projectId = req.params.projectId;
-    const commentId = req.params.commentId;
+    const projectId = req.query.projectId ? req.query.projectId : '';
+    const commentId = req.params._id ? req.params._id : '';
+    
+    if (!projectId || !commentId) {
+      return ResponeSuccess(req, res, {});
+    }
+    
     const user = req.user;
     
     const {result, error} = await validateComment(commentId, projectId, data, user);

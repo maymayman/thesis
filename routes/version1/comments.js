@@ -1,8 +1,8 @@
 const CommentHandle = require('express').Router();
 const CommentController = require('../../controllers/comments');
 
-CommentHandle.get('/:projectId', CommentController.getCmByProjectId);
-CommentHandle.post('/:projectId/', CommentController.create);
-CommentHandle.put('/:projectId/:commentId', CommentController.update);
+CommentHandle.get('/', CommentController.getCmByProjectId);
+CommentHandle.post('/', CommentController.create);
+CommentHandle.put('/:_id', CommentController.update);
 
 module['exports'] = CommentHandle;
