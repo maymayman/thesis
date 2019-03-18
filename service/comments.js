@@ -1,9 +1,15 @@
 const {Comments} = require('../models');
+const {STATUS_TYPE} = require('../config/const');
 
 const getCommentsByProjectId = async function (projectId) {
   try{
     
-    const comments = await Comments.findOne({project: projectId});
+    const comments = await Comments.find({project: projectId, type: STATUS_TYPE.COMMENT}).limit(100);
+    comments.forEach(async function (comment) {
+      if (comment && comment._id) {
+        comment.arrayReply = await Comments.find({parent: comment._id}).lean(true);
+      }
+    });
     
     return comments;
     

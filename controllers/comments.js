@@ -49,12 +49,11 @@ const update = async function (req, res) {
     const data = req.body;
     const projectId = req.query.projectId ? req.query.projectId : '';
     const commentId = req.params._id ? req.params._id : '';
-    
+    const user = req.user;
+  
     if (!projectId || !commentId) {
       return ResponeSuccess(req, res, {});
     }
-    
-    const user = req.user;
     
     const {result, error} = await validateComment(commentId, projectId, data, user);
     

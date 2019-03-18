@@ -2,6 +2,7 @@ const { Countries } = require('../models');
 const { Categories } = require('../models');
 const { Projects } = require('../models');
 const { Comments } = require('../models');
+const { USER, STATUS_TYPE } = require('../config/const');
 
 const CalculateAmount = function(project, percentDonate){
   try {
@@ -22,7 +23,7 @@ const validateCountry = async function (data, user) {
     let error = null;
     let result = {};
     
-    if (user.role != 'ADMIN') {
+    if (user.role != USER.ADMIN) {
       error = ErrorCode.PERMISSION_DENIED;
     }
     
@@ -55,7 +56,7 @@ const validateCategory = async function (data, user) {
     let error = null;
     let result = {};
     
-    if (user.role != 'ADMIN') {
+    if (user.role != USER.ADMIN) {
       error = ErrorCode.PERMISSION_DENIED;
     }
     
@@ -88,7 +89,7 @@ const validateProject = async function (data, user) {
     let error = null;
     let result = {};
     
-    if (user.role != 'COMPANY' || !user.information || !user.information.nameCompany) {
+    if (user.role != USER.COMPANY || !user.information || !user.information.nameCompany) {
       error = ErrorCode.USER_COMPANY_INVALID;
     }
     
@@ -151,7 +152,7 @@ const validateDonate = async function (data, user) {
     let result = {};
     let project = {};
     
-    if (user.role != 'GUEST') {
+    if (user.role != USER.GUEST) {
       error = ErrorCode.USER_ROLE_INVALID;
     }
     
@@ -199,19 +200,8 @@ const validateComment = async function (commentId, projectId, data, user) {
     let project = {};
     let comment = {};
     
-    if (user.role != "GUEST" && user.role != "COMPANY") {
+    if (user.role != USER.GUEST || user.role != USER.COMPANY) {
       error = ErrorCode.USER_ROLE_INVALID;
-    }
-    
-    if (data.action == 'update'){
-      if (!commentId){
-        error = ErrorCode.COMMENT_NO_EXITS;
-      }else {
-        comment = await Comments.findById({_id: commentId});
-        if (!comment) {
-          error = ErrorCode.COMMENT_NO_EXITS
-        }
-      }
     }
     
     if (!projectId) {
@@ -226,7 +216,7 @@ const validateComment = async function (commentId, projectId, data, user) {
     if (!data.type) {
       error = ErrorCode.TYPE_COMMENT_INVALID;
     } else {
-      if (data.type == 'REPLY'){
+      if (data.type == STATUS_TYPE.REPLY){
         if (!data.parentId){
           error = ErrorCode.TYPE_COMMENT_INVALID;
         }else {
