@@ -1,5 +1,5 @@
 const {Comments} = require('../models');
-const {STATUS_TYPE} = require('../config/const');
+const {STATUS_TYPE} = require('../config/const').USER;
 
 const getCommentsByProjectId = async function (projectId) {
   try{

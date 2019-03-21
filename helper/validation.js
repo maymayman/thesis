@@ -2,7 +2,7 @@ const { Countries } = require('../models');
 const { Categories } = require('../models');
 const { Projects } = require('../models');
 const { Comments } = require('../models');
-const { USER, STATUS_TYPE } = require('../config/const');
+const { ROLE, STATUS_TYPE } = require('../config/const').USER;
 
 const CalculateAmount = function(project, percentDonate){
   try {
@@ -23,7 +23,7 @@ const validateCountry = async function (data, user) {
     let error = null;
     let result = {};
     
-    if (user.role != USER.ADMIN) {
+    if (user.role != ROLE.ADMIN) {
       error = ErrorCode.PERMISSION_DENIED;
     }
     
@@ -56,7 +56,7 @@ const validateCategory = async function (data, user) {
     let error = null;
     let result = {};
     
-    if (user.role != USER.ADMIN) {
+    if (user.role != ROLE.ADMIN) {
       error = ErrorCode.PERMISSION_DENIED;
     }
     
@@ -89,7 +89,7 @@ const validateProject = async function (data, user) {
     let error = null;
     let result = {};
     
-    if (user.role != USER.COMPANY || !user.information || !user.information.nameCompany) {
+    if (user.role != ROLE.COMPANY || !user.information || !user.information.nameCompany) {
       error = ErrorCode.USER_COMPANY_INVALID;
     }
     
@@ -152,7 +152,7 @@ const validateDonate = async function (data, user) {
     let result = {};
     let project = {};
     
-    if (user.role != USER.GUEST) {
+    if (user.role != ROLE.GUEST) {
       error = ErrorCode.USER_ROLE_INVALID;
     }
     
@@ -200,7 +200,7 @@ const validateComment = async function (commentId, projectId, data, user) {
     let project = {};
     let comment = {};
     
-    if (user.role != USER.GUEST || user.role != USER.COMPANY) {
+    if (user.role != ROLE.GUEST && user.role != ROLE.COMPANY) {
       error = ErrorCode.USER_ROLE_INVALID;
     }
     

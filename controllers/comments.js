@@ -52,7 +52,7 @@ const update = async function (req, res) {
     const user = req.user;
   
     if (!projectId || !commentId) {
-      return ResponeSuccess(req, res, {});
+      return ResponeError(req, res, null, 'projectId or commentId is require');
     }
     
     const {result, error} = await validateComment(commentId, projectId, data, user);
