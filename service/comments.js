@@ -54,10 +54,6 @@ const update = async function (_id, data) {
   }
 };
 
-
-
-
-
 module.exports = {
   getCommentsByProjectId,
   create,
