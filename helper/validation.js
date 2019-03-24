@@ -1,6 +1,8 @@
 const { Countries } = require('../models');
 const { Categories } = require('../models');
 const { Projects } = require('../models');
+const { Comments } = require('../models');
+const { ROLE, STATUS_TYPE } = require('../config/const').USER;
 
 const CalculateAmount = function(project, percentDonate){
   try {
@@ -21,7 +23,7 @@ const validateCountry = async function (data, user) {
     let error = null;
     let result = {};
     
-    if (user.role != 'ADMIN') {
+    if (user.role != ROLE.ADMIN) {
       error = ErrorCode.PERMISSION_DENIED;
     }
     
@@ -54,7 +56,7 @@ const validateCategory = async function (data, user) {
     let error = null;
     let result = {};
     
-    if (user.role != 'ADMIN') {
+    if (user.role != ROLE.ADMIN) {
       error = ErrorCode.PERMISSION_DENIED;
     }
     
@@ -87,7 +89,7 @@ const validateProject = async function (data, user) {
     let error = null;
     let result = {};
     
-    if (user.role != 'COMPANY' || !user.information || !user.information.nameCompany) {
+    if (user.role != ROLE.COMPANY || !user.information || !user.information.nameCompany) {
       error = ErrorCode.USER_COMPANY_INVALID;
     }
     
@@ -150,7 +152,7 @@ const validateDonate = async function (data, user) {
     let result = {};
     let project = {};
     
-    if (user.role != 'GUEST') {
+    if (user.role != ROLE.GUEST) {
       error = ErrorCode.USER_ROLE_INVALID;
     }
     
@@ -191,10 +193,65 @@ const validateDonate = async function (data, user) {
   }
 };
 
+const validateComment = async function (commentId, projectId, data, user) {
+  try {
+    let error = null;
+    let result = {};
+    let project = {};
+    let comment = {};
+    
+    if (user.role != ROLE.GUEST && user.role != ROLE.COMPANY) {
+      error = ErrorCode.USER_ROLE_INVALID;
+    }
+    
+    if (!projectId) {
+      error = ErrorCode.PROJECT_TITLE_INVALID;
+    }else {
+      project = await Projects.findById({_id: projectId});
+      if (!project) {
+        error = ErrorCode.PROJECT_DOES_NOT_EXISTS
+      }
+    }
+    
+    if (!data.type) {
+      error = ErrorCode.TYPE_COMMENT_INVALID;
+    } else {
+      if (data.type == STATUS_TYPE.REPLY){
+        if (!data.parentId){
+          error = ErrorCode.TYPE_COMMENT_INVALID;
+        }else {
+          comment = await Comments.findById({_id: data.parentId});
+          if (!comment) {
+            error = ErrorCode.COMMENT_NO_EXITS;
+          }
+        }
+      }
+    }
+    
+    if (!error) {
+      result = {
+        user: user._id,
+        project: projectId,
+        parentId : data.parentId,
+        type: data.type,
+        content: data.content || '',
+      }
+    }
+    
+    return {result, error};
+    
+  } catch (error) {
+    
+    return HandleError(error);
+    
+  }
+};
+
 
 module.exports = {
   validateCountry,
   validateCategory,
   validateProject,
   validateDonate,
+  validateComment
 };

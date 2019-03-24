@@ -6,5 +6,6 @@ router.use('/categories', require('./version1/categories'));
 router.use('/projects', require('./version1/projects'));
 router.use('/countries', require('./version1/countries'));
 router.use('/donates', require('./version1/donates'));
+router.use('/comments', require('./version1/comments'));
 
 module.exports = router;
