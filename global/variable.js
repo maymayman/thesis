@@ -38,6 +38,10 @@ ErrorCode = {
   TYPE_COMMENT_INVALID: 6001,
   COMMENT_NO_EXITS: 6002,
   
+  FOLLOW_NO_EXITS: 7001,
+  
+  LIKE_NO_EXITS: 8001,
+  
   
   AUTHENTICATE: 1999,
 }
@@ -75,4 +79,6 @@ ErrorMessage = {
   [ErrorCode.COMMENT_NO_EXITS]: 'comment no exits',
   [ErrorCode.PROJECT_ID_IS_REQUIRE]: 'projectId is require',
   [ErrorCode.PROJECT_ID_OR_COMMENT_ID_IS_REQUIRE]: 'projectId or commentId is require',
+  [ErrorCode.FOLLOW_NO_EXITS]: 'follow does not exists',
+  [ErrorCode.LIKE_NO_EXITS]: 'like does not exists',
 };

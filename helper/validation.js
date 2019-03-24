@@ -2,7 +2,7 @@ const { Countries } = require('../models');
 const { Categories } = require('../models');
 const { Projects } = require('../models');
 const { Comments } = require('../models');
-const { ROLE, STATUS_TYPE } = require('../config/const').USER;
+const { ROLE, STATUS_TYPE, STATUS} = require('../config/const').USER;
 
 const CalculateAmount = function(project, percentDonate){
   try {
@@ -247,11 +247,93 @@ const validateComment = async function (commentId, projectId, data, user) {
   }
 };
 
+const validateFollows = async function (followId, projectId, data, user) {
+  try {
+    let error = null;
+    let result = {};
+    let project = {};
+    let status = null;
+    
+    if (user.role != ROLE.GUEST && user.role != ROLE.COMPANY) {
+      error = ErrorCode.USER_ROLE_INVALID;
+    }
+    
+    if (!projectId) {
+      error = ErrorCode.PROJECT_TITLE_INVALID;
+    }else {
+      project = await Projects.findById({_id: projectId});
+      if (!project) {
+        error = ErrorCode.PROJECT_DOES_NOT_EXISTS
+      }
+    }
+    if (data && data.status){
+      status = data.status;
+    }
+    
+    if (!error) {
+      result = {
+        user: user._id,
+        project: projectId,
+        status: status || STATUS.ACTIVE,
+      }
+    }
+    
+    return {result, error};
+    
+  } catch (error) {
+    
+    return HandleError(error);
+    
+  }
+};
+
+const validateLikes = async function (likeId, projectId, data, user) {
+  try {
+    let error = null;
+    let result = {};
+    let project = {};
+    let status = null;
+    
+    if (user.role != ROLE.GUEST && user.role != ROLE.COMPANY) {
+      error = ErrorCode.USER_ROLE_INVALID;
+    }
+    
+    if (!projectId) {
+      error = ErrorCode.PROJECT_TITLE_INVALID;
+    }else {
+      project = await Projects.findById({_id: projectId});
+      if (!project) {
+        error = ErrorCode.PROJECT_DOES_NOT_EXISTS
+      }
+    }
+    if (data && data.status){
+      status = data.status;
+    }
+    
+    if (!error) {
+      result = {
+        user: user._id,
+        project: projectId,
+        status: status || STATUS.ACTIVE,
+      }
+    }
+    
+    return {result, error};
+    
+  } catch (error) {
+    
+    return HandleError(error);
+    
+  }
+};
+
 
 module.exports = {
   validateCountry,
   validateCategory,
   validateProject,
   validateDonate,
-  validateComment
+  validateComment,
+  validateFollows,
+  validateLikes,
 };
