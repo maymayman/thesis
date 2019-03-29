@@ -34,9 +34,9 @@ const create = async function (req, res) {
       return ResponeError(req, res, null, error);
     }
     
-    const follow = await likesService.create(result);
+    const like = await likesService.create(result);
     
-    return ResponeSuccess(req, res, {follow});
+    return ResponeSuccess(req, res, {like});
     
   } catch (error) {
     

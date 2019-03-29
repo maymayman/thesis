@@ -4,7 +4,7 @@ const {STATUS} = require('../config/const').USER;
 const getLiByProjectId = async function (projectId) {
   try{
     
-    const likes = await Likes.find({project: projectId, type: STATUS.ACTIVE}).limit(100);
+    const likes = await Likes.find({project: projectId}).limit(100);
     
     return likes;
     
