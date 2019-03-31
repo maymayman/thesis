@@ -4,7 +4,7 @@ const {STATUS} = require('../config/const').USER;
 const getFlsByProjectId = async function (projectId) {
   try{
     
-    const follows = await Follows.find({project: projectId}).limit(100);
+    const follows = await Follows.find({project: projectId}).populate('user').limit(100);
     
     return follows;
     
