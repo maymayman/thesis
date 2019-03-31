@@ -3,11 +3,10 @@ const {validateBoolean} = require('../helper/utils.js');
 
 const getNotificationsOfUser = async function (req, res) {
   try {
-    const projectId = req.query.projectId;
     const user = req.user;
     
-    if ((!user && !user._id)) {
-      return ResponeError(req, res, null, ErrorCode.USER_NAME_INVALID);
+    if ((!user || !user._id)) {
+      return ResponeError(req, res, null, ErrorCode.PERMISSION_DENIED);
     }
     
     const notifications = await notificationsService.getNotificationsUser(user);
@@ -24,7 +23,6 @@ const update = async function (req, res) {
   try {
     const is_read = req.body.is_read;
     const notificationId = req.params._id ? req.params._id : '';
-    const user = req.user;
   
     if (!notificationId) {
       return ResponeError(req, res, null, ErrorCode.NOTIFICATION_ID_IS_REQUIRE);
