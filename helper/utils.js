@@ -8,9 +8,17 @@ const validateUserName = function(username) {
 	var re = /^[a-zA-Z0-9]*$/;
     return re.test(String(username).toLowerCase());
 };
+const validateBoolean = function(is_read) {
+	if (typeof is_read === 'boolean'){
+	  return true;
+  }else {
+	  return false;
+  }
+};
 
 
 module.exports = {
 	validateEmail,
   validateUserName,
+  validateBoolean
 };

@@ -1,5 +1,8 @@
 const DonateService = require('../service/donates.js');
-const {validateDonate} = require('../helper/validation')
+const {validateDonate} = require('../helper/validation');
+const notificationsService = require('../service/notifications');
+const {validateNotifications} = require('../helper/validation');
+
 
 const getByProjectId = async function (req, res) {
   try {
@@ -31,6 +34,8 @@ const create = async function (req, res) {
     }
   
     const donate = await DonateService.create(result);
+    
+    await notificationsService.create(donate, user);
   
     return ResponeSuccess(req, res, {donate});
   }catch (error) {
