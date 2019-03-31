@@ -21,6 +21,7 @@ const projects = {
   commentsCount:{type: Number},
   images:[{type: String}],
   countryId:{type: Schema.Types.ObjectId, ref: 'countries'},
+  userId:{type: Schema.Types.ObjectId, ref: 'users'},
   categoryId:{type: Schema.Types.ObjectId, ref: 'categories'}
 };
 

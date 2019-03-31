@@ -123,6 +123,7 @@ const validateProject = async function (data, user) {
       result = {
         title: data.title,
         countryId: data.countryId,
+        userId: user._id,
         categoryId : data.categoryId,
         about : data.about || '',
         personResponsible: {

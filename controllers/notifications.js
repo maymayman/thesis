@@ -1,16 +1,16 @@
 const notificationsService = require('../service/notifications');
 const {validateBoolean} = require('../helper/utils.js');
 
-const getNotiByProjectId = async function (req, res) {
+const getNotificationsOfUser = async function (req, res) {
   try {
     const projectId = req.query.projectId;
     const user = req.user;
     
-    if (!projectId || (!user && !user._id)) {
-      return ResponeError(req, res, null, ErrorCode.PROJECT_ID_IS_REQUIRE);
+    if ((!user && !user._id)) {
+      return ResponeError(req, res, null, ErrorCode.USER_NAME_INVALID);
     }
     
-    const notifications = await notificationsService.getNotificationsByProjectId(projectId, user);
+    const notifications = await notificationsService.getNotificationsUser(user);
     
     return ResponeSuccess(req, res, {notifications});
     
@@ -46,6 +46,6 @@ const update = async function (req, res) {
 
 
 module.exports = {
-  getNotiByProjectId,
+  getNotificationsOfUser,
   update
 };
