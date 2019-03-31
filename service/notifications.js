@@ -47,7 +47,7 @@ const update = async function (_id, is_read) {
       return HandleError(ErrorCode.NOTIFICATION_NO_EXITS);
     }
     
-    notification.set(is_read);
+    notification.is_read = is_read;
     
     const notificationSaved = await notification.save();
     

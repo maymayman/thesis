@@ -22,7 +22,7 @@ const getNotificationsOfUser = async function (req, res) {
 
 const update = async function (req, res) {
   try {
-    const is_read = req.body;
+    const is_read = req.body.is_read;
     const notificationId = req.params._id ? req.params._id : '';
     const user = req.user;
   
