@@ -32,9 +32,9 @@ const update = async function (req, res) {
       return ResponeError(req, res, null, ErrorCode.IS_READ_TYPE_BOOLEAN);
     }
     
-    const dataUpdated = await notificationsService.update(notificationId, is_read);
+    const notification = await notificationsService.update(notificationId, is_read);
     
-    return ResponeSuccess(req, res, {dataUpdated});
+    return ResponeSuccess(req, res, {notification});
     
   } catch (error) {
     

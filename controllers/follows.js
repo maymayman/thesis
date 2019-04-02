@@ -19,6 +19,24 @@ const getFollowsByProjectId = async function (req, res) {
   }
 };
 
+const getProjectFollowedByUser = async function (req, res) {
+  try {
+    const user = req.user;
+    
+    if (!user ) {
+      return ResponeError(req, res, null, ErrorCode.PERMISSION_DENIED);
+    }
+    
+    const follows = await followsService.getFollowProjectWitUser(user);
+    
+    return ResponeSuccess(req, res, {follows});
+    
+  } catch (error) {
+    
+    return ResponeError(req, res, error, error.message);
+  }
+};
+
 const create = async function (req, res) {
   try {
     const data = req.body;
@@ -61,9 +79,9 @@ const update = async function (req, res) {
       return ResponeError(req, res, null, error);
     }
     
-    const dataUpdated = await followsService.update(followId, result);
+    const follow = await followsService.update(followId, result);
     
-    return ResponeSuccess(req, res, {dataUpdated});
+    return ResponeSuccess(req, res, {follow});
     
   } catch (error) {
     
@@ -74,6 +92,7 @@ const update = async function (req, res) {
 
 module.exports = {
   getFollowsByProjectId,
+  getProjectFollowedByUser,
   create,
   update
 };

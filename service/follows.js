@@ -14,6 +14,19 @@ const getFlsByProjectId = async function (projectId) {
   }
 };
 
+const getFollowProjectWitUser = async function (user) {
+  try{
+    
+    const follows = await Follows.find({user: user._id}).populate('project').limit(100);
+    
+    return follows;
+    
+  }catch (error) {
+    return HandleError(error);
+    
+  }
+};
+
 const create = async function (follow) {
   try{
     
@@ -51,6 +64,7 @@ const update = async function (_id, data) {
 
 module.exports = {
   getFlsByProjectId,
+  getFollowProjectWitUser,
   create,
   update
 };

@@ -47,9 +47,9 @@ const update = async function (req, res) {
       return ResponeError(req, res, null, error);
     }
     
-    const dataUpdated = await projectsService.update(_id, result);
+    const project = await projectsService.update(_id, result);
     
-    return ResponeSuccess(req, res, {dataUpdated});
+    return ResponeSuccess(req, res, {project});
     
   } catch (error) {
     

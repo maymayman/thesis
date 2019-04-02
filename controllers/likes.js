@@ -61,9 +61,9 @@ const update = async function (req, res) {
       return ResponeError(req, res, null, error);
     }
     
-    const dataUpdated = await likesService.update(followId, result);
+    const like = await likesService.update(followId, result);
     
-    return ResponeSuccess(req, res, {dataUpdated});
+    return ResponeSuccess(req, res, {like});
     
   } catch (error) {
     

@@ -61,9 +61,9 @@ const update = async function (req, res) {
       return ResponeError(req, res, null, error);
     }
     
-    const dataUpdated = await commentsService.update(commentId, result);
+    const comment = await commentsService.update(commentId, result);
     
-    return ResponeSuccess(req, res, {dataUpdated});
+    return ResponeSuccess(req, res, {comment});
     
   } catch (error) {
     
