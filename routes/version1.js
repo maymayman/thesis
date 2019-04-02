@@ -7,5 +7,8 @@ router.use('/projects', require('./version1/projects'));
 router.use('/countries', require('./version1/countries'));
 router.use('/donates', require('./version1/donates'));
 router.use('/comments', require('./version1/comments'));
+router.use('/follows', require('./version1/follows'));
+router.use('/likes', require('./version1/likes'));
+router.use('/notifications', require('./version1/notifications'));
 
 module.exports = router;

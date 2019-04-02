@@ -1,7 +1,7 @@
-const commentsService = require('../service/comments');
-const {validateComment} = require('../helper/validation')
+const likesService = require('../service/likes');
+const {validateLikes} = require('../helper/validation');
 
-const getCmByProjectId = async function (req, res) {
+const getLikesByProjectId = async function (req, res) {
   try {
     const projectId = req.query.projectId;
     
@@ -9,9 +9,9 @@ const getCmByProjectId = async function (req, res) {
       return ResponeError(req, res, null, ErrorCode.PROJECT_ID_IS_REQUIRE);
     }
     
-    const comments = await commentsService.getCommentsByProjectId(projectId);
+    const likes = await likesService.getLiByProjectId(projectId);
     
-    return ResponeSuccess(req, res, {comments});
+    return ResponeSuccess(req, res, {likes});
     
   } catch (error) {
     
@@ -28,15 +28,15 @@ const create = async function (req, res) {
     if (!projectId ) {
       return ResponeError(req, res, null, ErrorCode.PROJECT_ID_IS_REQUIRE);
     }
-    const {result, error} = await validateComment(null, projectId, data, user);
+    const {result, error} = await validateLikes(null, projectId, data, user);
     
     if (error) {
       return ResponeError(req, res, null, error);
     }
     
-    const comment = await commentsService.create(result);
+    const like = await likesService.create(result);
     
-    return ResponeSuccess(req, res, {comment});
+    return ResponeSuccess(req, res, {like});
     
   } catch (error) {
     
@@ -48,22 +48,22 @@ const update = async function (req, res) {
   try {
     const data = req.body;
     const projectId = req.query.projectId ? req.query.projectId : '';
-    const commentId = req.params._id ? req.params._id : '';
+    const followId = req.params._id ? req.params._id : '';
     const user = req.user;
   
-    if (!projectId || !commentId) {
+    if (!projectId || !followId) {
       return ResponeError(req, res, null, ErrorCode.PROJECT_ID_OR_COMMENT_ID_IS_REQUIRE);
     }
     
-    const {result, error} = await validateComment(commentId, projectId, data, user);
+    const {result, error} = await validateLikes(followId, projectId, data, user);
     
     if (error) {
       return ResponeError(req, res, null, error);
     }
     
-    const comment = await commentsService.update(commentId, result);
+    const like = await likesService.update(followId, result);
     
-    return ResponeSuccess(req, res, {comment});
+    return ResponeSuccess(req, res, {like});
     
   } catch (error) {
     
@@ -73,7 +73,7 @@ const update = async function (req, res) {
 
 
 module.exports = {
-  getCmByProjectId,
+  getLikesByProjectId,
   create,
   update
 };

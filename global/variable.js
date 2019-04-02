@@ -38,9 +38,17 @@ ErrorCode = {
   TYPE_COMMENT_INVALID: 6001,
   COMMENT_NO_EXITS: 6002,
   
+  FOLLOW_NO_EXITS: 7001,
+  
+  LIKE_NO_EXITS: 8001,
+  
+  NOTIFICATION_ID_IS_REQUIRE: 9001,
+  NOTIFICATION_NO_EXITS: 9002,
+  IS_READ_TYPE_BOOLEAN: 9003,
+  
   
   AUTHENTICATE: 1999,
-}
+};
 
 ErrorMessage = {
   [ErrorCode.API_SUCCESS]: 'API success.',
@@ -75,4 +83,10 @@ ErrorMessage = {
   [ErrorCode.COMMENT_NO_EXITS]: 'comment no exits',
   [ErrorCode.PROJECT_ID_IS_REQUIRE]: 'projectId is require',
   [ErrorCode.PROJECT_ID_OR_COMMENT_ID_IS_REQUIRE]: 'projectId or commentId is require',
+  [ErrorCode.FOLLOW_NO_EXITS]: 'follow does not exists',
+  [ErrorCode.LIKE_NO_EXITS]: 'like does not exists',
+  [ErrorCode.NOTIFICATION_ID_IS_REQUIRE]: 'notificationId is require',
+  [ErrorCode.IS_READ_TYPE_BOOLEAN]: 'is_read type is boolean',
+  [ErrorCode.NOTIFICATION_NO_EXITS]: 'notification does not exists',
+  
 };

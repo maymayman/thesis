@@ -3,9 +3,9 @@ const {validateCountry} = require('../helper/validation.js');
 
 const getAll = async function (req, res) {
   try {
-    const Countries = await CountriesService.getAll();
+    const countries = await CountriesService.getAll();
     
-    return ResponeSuccess(req, res, {Countries});
+    return ResponeSuccess(req, res, {countries});
     
   } catch (error) {
     
@@ -45,9 +45,9 @@ const update = async function (req, res) {
     if (error) {
       return ResponeError(req, res, null, error);
     }
-    const dataUpdated = await CountriesService.update(_id, result);
+    const country = await CountriesService.update(_id, result);
   
-    return ResponeSuccess(req, res, {dataUpdated});
+    return ResponeSuccess(req, res, {country});
     
   } catch (error) {
     
