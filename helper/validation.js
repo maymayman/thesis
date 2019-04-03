@@ -126,6 +126,7 @@ const validateProject = async function (data, user) {
         userId: user._id,
         categoryId : data.categoryId,
         about : data.about || '',
+        images : data.images || [],
         personResponsible: {
           firstName: data.personResponsible.firstName || '',
           lastName: data.personResponsible.lastName || '',

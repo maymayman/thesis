@@ -4,14 +4,19 @@ const {validateFollows} = require('../helper/validation');
 const getFollowsByProjectId = async function (req, res) {
   try {
     const projectId = req.query.projectId;
+    const limit = req.query.limit;
+    const skip = req.query.skip;
+    let count = 0;
     
     if (!projectId ) {
       return ResponeError(req, res, null, ErrorCode.PROJECT_ID_IS_REQUIRE);
     }
     
-    const follows = await followsService.getFlsByProjectId(projectId);
+    count = await followsService.countData({project: projectId});
     
-    return ResponeSuccess(req, res, {follows});
+    const follows = await followsService.getFlsByProjectId(projectId, limit, skip);
+    
+    return ResponeSuccess(req, res, {follows, total: count});
     
   } catch (error) {
     
@@ -22,14 +27,18 @@ const getFollowsByProjectId = async function (req, res) {
 const getProjectFollowedByUser = async function (req, res) {
   try {
     const user = req.user;
+    const limit = req.query.limit;
+    const skip = req.query.skip;
+    let count = 0;
     
     if (!user ) {
       return ResponeError(req, res, null, ErrorCode.PERMISSION_DENIED);
     }
+    count = await followsService.countData({user: user._id});
+  
+    const follows = await followsService.getFollowProjectWitUser(user, limit, skip);
     
-    const follows = await followsService.getFollowProjectWitUser(user);
-    
-    return ResponeSuccess(req, res, {follows});
+    return ResponeSuccess(req, res, {follows, total: count});
     
   } catch (error) {
     

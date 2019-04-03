@@ -3,9 +3,14 @@ const {validateCategory} = require('../helper/validation.js');
 
 const getAll = async function (req, res) {
   try {
-    const categories = await categoriesService.getAll();
+    const limit = req.query.limit || 20;
+    const skip = req.query.skip || 0;
+    let count = 0;
     
-    return ResponeSuccess(req, res, {categories});
+    count = await categoriesService.countData({});
+    const categories = await categoriesService.getAll(limit, skip);
+    
+    return ResponeSuccess(req, res, {categories, total: count});
     
   } catch (error) {
     

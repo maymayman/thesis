@@ -4,14 +4,18 @@ const {validateLikes} = require('../helper/validation');
 const getLikesByProjectId = async function (req, res) {
   try {
     const projectId = req.query.projectId;
+    const limit = req.query.limit;
+    const skip = req.query.skip;
+    let count = 0;
     
     if (!projectId ) {
       return ResponeError(req, res, null, ErrorCode.PROJECT_ID_IS_REQUIRE);
     }
+    count = await likesService.countData({project: projectId});
+  
+    const likes = await likesService.getLiByProjectId(projectId, limit, skip);
     
-    const likes = await likesService.getLiByProjectId(projectId);
-    
-    return ResponeSuccess(req, res, {likes});
+    return ResponeSuccess(req, res, {likes, total: count});
     
   } catch (error) {
     

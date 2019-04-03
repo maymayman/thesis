@@ -4,14 +4,18 @@ const {validateBoolean} = require('../helper/utils.js');
 const getNotificationsOfUser = async function (req, res) {
   try {
     const user = req.user;
+    const limit = req.query.limit;
+    const skip = req.query.skip;
+    let count = 0;
     
     if ((!user || !user._id)) {
       return ResponeError(req, res, null, ErrorCode.PERMISSION_DENIED);
     }
+    count = await notificationsService.countData({user: user._id});
+  
+    const notifications = await notificationsService.getNotificationsUser(user, limit, skip);
     
-    const notifications = await notificationsService.getNotificationsUser(user);
-    
-    return ResponeSuccess(req, res, {notifications});
+    return ResponeSuccess(req, res, {notifications, total: count});
     
   } catch (error) {
     

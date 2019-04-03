@@ -4,10 +4,10 @@ const {Projects} = require('../models');
 const {Users} = require('../models');
 const {STATUS} = require('../config/const').USER;
 
-const getNotificationsUser = async function (user) {
+const getNotificationsUser = async function (user, limit, skip) {
   try {
     
-    const notifications = await Notifications.find({user: user._id}).limit(100);
+    const notifications = await Notifications.find({user: user._id}).limit(limit).skip(skip);
     
     return notifications;
     
@@ -122,11 +122,23 @@ const notificationToUserProject = async function (userDonate, project) {
   }
 };
 
+const  countData = async function(filter) {
+  try {
+    const count = Notifications.count(filter);
+    
+    return count;
+    
+  }catch (error) {
+    return HandleError(error);
+  }
+};
+
 module.exports = {
   getNotificationsUser,
   create,
   update,
   handleNotificationToUserDonate,
   notificationToUserDonate,
-  notificationToUserProject
+  notificationToUserProject,
+  countData
 };

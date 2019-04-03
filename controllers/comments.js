@@ -4,14 +4,18 @@ const {validateComment} = require('../helper/validation')
 const getCmByProjectId = async function (req, res) {
   try {
     const projectId = req.query.projectId;
+    const limit = req.query.limit;
+    const skip = req.query.skip;
+    let count = 0;
     
     if (!projectId ) {
       return ResponeError(req, res, null, ErrorCode.PROJECT_ID_IS_REQUIRE);
     }
     
-    const comments = await commentsService.getCommentsByProjectId(projectId);
+    count = await commentsService.countData({project: projectId});
+    const comments = await commentsService.getCommentsByProjectId(projectId, limit, skip);
     
-    return ResponeSuccess(req, res, {comments});
+    return ResponeSuccess(req, res, {comments, total: count});
     
   } catch (error) {
     

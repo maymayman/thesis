@@ -1,9 +1,9 @@
 const {Categories} = require('../models');
 
-const getAll = async function () {
+const getAll = async function (limit, skip) {
   try {
     
-    const listCategories = await Categories.find({});
+    const listCategories = await Categories.find({}).limit(limit).skip(skip);
     
     return listCategories;
     
@@ -45,8 +45,20 @@ const update = async function (_id, data) {
   }
 };
 
+const  countData = async function(filter) {
+  try {
+    const count = Categories.count(filter);
+    
+    return count;
+    
+  }catch (error) {
+    return HandleError(error);
+  }
+};
+
 module.exports = {
   getAll,
   create,
   update,
+  countData
 };

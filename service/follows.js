@@ -1,10 +1,10 @@
 const {Follows} = require('../models');
 const {STATUS} = require('../config/const').USER;
 
-const getFlsByProjectId = async function (projectId) {
+const getFlsByProjectId = async function (projectId, limit, skip) {
   try{
     
-    const follows = await Follows.find({project: projectId}).populate('user').limit(100);
+    const follows = await Follows.find({project: projectId}).populate('user').limit(limit).skip(skip);
     
     return follows;
     
@@ -14,10 +14,10 @@ const getFlsByProjectId = async function (projectId) {
   }
 };
 
-const getFollowProjectWitUser = async function (user) {
+const getFollowProjectWitUser = async function (user, limit, skip) {
   try{
     
-    const follows = await Follows.find({user: user._id}).populate('project').limit(100);
+    const follows = await Follows.find({user: user._id}).populate('project').limit(limit).skip(skip);
     
     return follows;
     
@@ -62,9 +62,21 @@ const update = async function (_id, data) {
   }
 };
 
+const  countData = async function(filter) {
+  try {
+    const count = Follows.count(filter);
+    
+    return count;
+    
+  }catch (error) {
+    return HandleError(error);
+  }
+};
+
 module.exports = {
   getFlsByProjectId,
   getFollowProjectWitUser,
   create,
-  update
+  update,
+  countData
 };

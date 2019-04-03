@@ -43,16 +43,7 @@ const create = async function (req, res) {
   }
 };
 
-const update = async function (req, res) {
-  try {
-  
-  }catch (error) {
-    return ResponeError(req, res, error, error.message);
-  }
-};
-
 module.exports = {
   getByProjectId,
   create,
-  update
 };

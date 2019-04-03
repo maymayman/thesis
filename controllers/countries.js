@@ -3,9 +3,16 @@ const {validateCountry} = require('../helper/validation.js');
 
 const getAll = async function (req, res) {
   try {
-    const countries = await CountriesService.getAll();
+    const limit = req.query.limit;
+    const skip = req.query.skip;
+    let count = 0;
+  
+    count = await CountriesService.countData({});
+  
+    const countries = await CountriesService.getAll(limit, skip);
     
-    return ResponeSuccess(req, res, {countries});
+    
+    return ResponeSuccess(req, res, {countries, total: count});
     
   } catch (error) {
     
