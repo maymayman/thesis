@@ -8,10 +8,9 @@ const getAll = async function (req, res) {
   try {
     const limit = req.query.limit || 20;
     const skip = req.query.skip || 0;
-    let count = 0;
-    
-    count = await projectsService.countData({});
-    const projects = await projectsService.getAll(limit, skip);
+  
+    const count = await projectsService.countData({});
+    const projects = await projectsService.getAllProjectsOfMe({}, limit, skip);
     
     return ResponeSuccess(req, res, {projects, total: count});
     
@@ -32,7 +31,7 @@ const getAllOfMe = async function (req, res) {
     if(user.role == ROLE.COMPANY) {
       count = await projectsService.countData({userId: user._id});
       
-      projects = await projectsService.getAllProjectsOfMe(user, limit, skip);
+      projects = await projectsService.getAllProjectsOfMe({userId: user._id}, limit, skip);
       
     }else if (user.role == ROLE.GUEST){
       let pipeline = [
