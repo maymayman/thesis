@@ -31,7 +31,7 @@ const getAllOfMe = async function (req, res) {
     if(user.role == ROLE.COMPANY) {
       count = await projectsService.countData({userId: user._id});
       
-      projects = await projectsService.getAllProjectsOfMe({userId: user._id}, limit, skip);
+      projects = await projectsService.getAllProjects({userId: user._id}, limit, skip);
       
     }else if (user.role == ROLE.GUEST){
       let pipeline = [

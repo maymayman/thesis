@@ -4,7 +4,7 @@ const {checkExitsProject} = require('../helper/utils.js');
 const {checkExitsCategory} = require('../helper/utils.js');
 const {checkExitsCountry} = require('../helper/utils.js');
 
-const getAllProjectsOfMe = async function(query, limit, skip) {
+const getAllProjects = async function(query, limit, skip) {
   try {
     
       const listProjects = await Projects.find(query).limit(limit).skip(skip);
@@ -65,7 +65,7 @@ const  countData = async function(filter) {
 
 
 module.exports = {
-  getAllProjectsOfMe,
+  getAllProjects,
   create,
   update,
   countData
