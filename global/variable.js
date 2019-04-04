@@ -65,7 +65,7 @@ ErrorMessage = {
   [ErrorCode.USER_NOT_EXISTS]: 'user`s account not exists',
   [ErrorCode.USER_NAME_OR_PASSWORD_INVALID]: 'username or password invalid',
   [ErrorCode.TYPE_USER_INVALID]: 'type of user invalid',
-  [ErrorCode.USER_COMPANY_INVALID]: 'company do not blank',
+  [ErrorCode.USER_COMPANY_INVALID]: 'user role invalid',
   [ErrorCode.PERMISSION_DENIED]: 'permission denied',
   [ErrorCode.PROJECT_TITLE_INVALID]: 'title do not blank',
   [ErrorCode.COUNTRY_INVALID]: 'country invalid',

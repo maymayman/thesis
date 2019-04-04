@@ -1,10 +1,10 @@
 const {Likes} = require('../models');
 const {STATUS} = require('../config/const').USER;
 
-const getLiByProjectId = async function (projectId) {
+const getLiByProjectId = async function (projectId, limit, skip) {
   try{
     
-    const likes = await Likes.find({project: projectId}).populate('user').limit(100);
+    const likes = await Likes.find({project: projectId}).populate('user').limit(limit).skip(skip);
     
     return likes;
     
@@ -49,8 +49,20 @@ const update = async function (_id, data) {
   }
 };
 
+const  countData = async function(filter) {
+  try {
+    const count = Likes.count(filter);
+    
+    return count;
+    
+  }catch (error) {
+    return HandleError(error);
+  }
+};
+
 module.exports = {
   getLiByProjectId,
   create,
-  update
+  update,
+  countData
 };

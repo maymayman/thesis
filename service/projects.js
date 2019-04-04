@@ -1,14 +1,15 @@
 const { Projects } = require('../models');
+const { Donates } = require('../models');
 const {checkExitsProject} = require('../helper/utils.js');
 const {checkExitsCategory} = require('../helper/utils.js');
 const {checkExitsCountry} = require('../helper/utils.js');
 
-const getAll = async function() {
+const getAllProjects = async function(query, limit, skip) {
   try {
     
-    const listProjects = await Projects.find({});
-    
-    return listProjects;
+      const listProjects = await Projects.find(query).limit(limit).skip(skip);
+      
+      return listProjects;
     
   }catch (error) {
     return HandleError(error);
@@ -50,10 +51,22 @@ const update = async function (_id, data) {
   }
 };
 
+const  countData = async function(filter) {
+  try {
+    const count = Projects.count(filter);
+    
+    return count;
+    
+  }catch (error) {
+    return HandleError(error);
+  }
+};
+
 
 
 module.exports = {
-  getAll,
+  getAllProjects,
   create,
   update,
+  countData
 };

@@ -1,10 +1,10 @@
 const {Comments} = require('../models');
 const {STATUS_TYPE} = require('../config/const').USER;
 
-const getCommentsByProjectId = async function (projectId) {
+const getCommentsByProjectId = async function (projectId, limit, skip) {
   try{
     
-    const comments = await Comments.find({project: projectId, type: STATUS_TYPE.COMMENT}).limit(100);
+    const comments = await Comments.find({project: projectId, type: STATUS_TYPE.COMMENT}).limit(limit).skip(skip);
     comments.forEach(async function (comment) {
       if (comment && comment._id) {
         comment.arrayReply = await Comments.find({parent: comment._id}).lean(true);
@@ -54,8 +54,20 @@ const update = async function (_id, data) {
   }
 };
 
+const  countData = async function(filter) {
+  try {
+    const count = Comments.count(filter);
+    
+    return count;
+    
+  }catch (error) {
+    return HandleError(error);
+  }
+};
+
 module.exports = {
   getCommentsByProjectId,
   create,
-  update
+  update,
+  countData
 };
