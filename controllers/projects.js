@@ -8,9 +8,15 @@ const getAll = async function (req, res) {
   try {
     const limit = req.query.limit || 20;
     const skip = req.query.skip || 0;
+    const categoryId = req.query.categoryId || '';
+    const match = {};
+    
+    if (categoryId) {
+      match.categoryId = categoryId;
+    }
   
-    const count = await projectsService.countData({});
-    const projects = await projectsService.getAllProjectsOfMe({}, limit, skip);
+    const count = await projectsService.countData(match);
+    const projects = await projectsService.getAllProjects(match, limit, skip);
     
     return ResponeSuccess(req, res, {projects, total: count});
     
