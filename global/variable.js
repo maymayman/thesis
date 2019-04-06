@@ -34,6 +34,8 @@ ErrorCode = {
   MISSING_MONEY_DONATE: 5002,
   MISSING_PERCENT_DONATE: 5003,
   MISSING_USER_DONATE: 5004,
+  MISSING_AMOUNT_DONATE: 5005,
+  AMOUNT_DONATE_NOT_SUITABLE: 5006,
   
   TYPE_COMMENT_INVALID: 6001,
   COMMENT_NO_EXITS: 6002,
@@ -77,6 +79,8 @@ ErrorMessage = {
   [ErrorCode.PROJECT_DOES_NOT_EXISTS]: 'project does not exists',
   [ErrorCode.MISSING_MONEY_DONATE]: 'missing money to donate',
   [ErrorCode.MISSING_PERCENT_DONATE]: 'missing percent to donate',
+  [ErrorCode.MISSING_AMOUNT_DONATE]: 'missing amount to donate',
+  [ErrorCode.AMOUNT_DONATE_NOT_SUITABLE]: 'amount to donate not suitable',
   [ErrorCode.PERCENT_DONATE_INVALID]: 'percent donate invalid',
   [ErrorCode.MISSING_USER_DONATE]: 'missing user donate',
   [ErrorCode.TYPE_COMMENT_INVALID]: 'type comment invalid',

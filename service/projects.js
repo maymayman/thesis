@@ -16,9 +16,9 @@ const getAllProjects = async function(query, limit, skip) {
   }
 };
 
-const create = async function(category) {
+const create = async function(project) {
   try {
-    const ProjectsModel = new Projects(category);
+    const ProjectsModel = new Projects(project);
     
     const projectSaved= await ProjectsModel.save();
     
@@ -62,11 +62,37 @@ const  countData = async function(filter) {
   }
 };
 
-
+const recalculationProject = async function (data) {
+  try {
+    const project = await Projects.findById(data.projectId);
+    
+    if (!project) {
+      return HandleError(ErrorCode.PROJECT_DOES_NOT_EXISTS);
+    }
+    
+    const dataUpdate = {};
+    
+    dataUpdate.donateAmount = (project.donateAmount ? project.donateAmount : 0) + (data.amount ? data.amount : 0);
+    dataUpdate.process = (project.process ? project.process : 0) + (data.percent ? data.percent : 0);
+    dataUpdate.donationsCount = project.donationsCount + 1;
+    
+    project.set(dataUpdate);
+    
+    const projectUpdated = await project.save();
+    
+    return projectUpdated;
+    
+    
+  } catch (error) {
+    
+    return HandleError(error);
+  }
+};
 
 module.exports = {
   getAllProjects,
   create,
   update,
-  countData
+  countData,
+  recalculationProject
 };

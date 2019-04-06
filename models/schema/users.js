@@ -32,7 +32,8 @@ const users = {
     nameCompany: {type: String},
     address: {type: String},
     taxCode: {type: String}
-  }
+  },
+	avatar: {type: String}
 };
 
 const usersSchema = new Schema(users, { timestamps: true });

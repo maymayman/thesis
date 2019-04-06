@@ -10,7 +10,7 @@ const getAll = async function (req, res) {
     const skip = req.query.skip || 0;
   
     const count = await projectsService.countData({});
-    const projects = await projectsService.getAllProjectsOfMe({}, limit, skip);
+    const projects = await projectsService.getAllProjects({}, limit, skip);
     
     return ResponeSuccess(req, res, {projects, total: count});
     
