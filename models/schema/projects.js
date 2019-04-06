@@ -16,6 +16,8 @@ const projects = {
   },
   donationsCount: {type: Number, default: 0},
   amount:{type: Number},
+  donateAmount:{type: Number, default: 0},
+  process:{type: Number, default: 0},
   percent:{type: Number},
   minPercentSell:{type: Number},
   commentsCount:{type: Number},

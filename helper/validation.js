@@ -175,8 +175,17 @@ const validateDonate = async function (data, user) {
       }
     }
     
+    let amountCalculated = null;
+    if(!data.amount){
+      error = ErrorCode.MISSING_AMOUNT_DONATE;
+    }else {
+      amountCalculated = await CalculateAmount(project, data.percent);
+      if(data.amount != amountCalculated){
+        error = ErrorCode.MISSING_AMOUNT_DONATE;
+      }
+    }
+    
     if (!error) {
-      let amountCalculated = await CalculateAmount(project, data.percent);
       result = {
         userId: user._id,
         projectId: data.projectId,

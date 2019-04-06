@@ -1,7 +1,10 @@
 const DonateService = require('../service/donates.js');
+const ProjectService = require('../service/projects');
+const followsService = require('../service/follows');
 const {validateDonate} = require('../helper/validation');
 const notificationsService = require('../service/notifications');
-const {validateNotifications} = require('../helper/validation');
+const {validateFollows} = require('../helper/validation');
+const { ROLE, STATUS_TYPE, STATUS} = require('../config/const').USER;
 
 
 const getByProjectId = async function (req, res) {
@@ -34,7 +37,17 @@ const create = async function (req, res) {
     }
   
     const donate = await DonateService.create(result);
-    
+  
+    const project = await ProjectService.recalculationProject(result);
+  
+    const follow = {
+      user: user._id,
+      project: project._id,
+      status: STATUS.ACTIVE,
+    };
+  
+    await followsService.create(follow);
+  
     await notificationsService.create(donate, user);
   
     return ResponeSuccess(req, res, {donate});
