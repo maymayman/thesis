@@ -1,34 +1,37 @@
 const formidable = require('formidable');
 const util = require('util');
-const uploadDir = require('/public/images');
+const uploadDir = './public/images';
 
-const uploadImage = function (req, res) {
+const uploadFile = async function (req, res) {
   try {
-    if (req.url == '/upload'){
-      var form = new formidable.IncomingForm();
-      var fields = [];
-      form.uploadDir = uploadDir;
-      
-      form.on('error', function(error) {
-        return HandleError(error);
-      })
+    var form = new formidable.IncomingForm();
+    var fields = [];
+    var files = [];
+    form.uploadDir = uploadDir;
+    if (req.url == '/'){
+      form = await form.parse(req);
+  
+      form
         .on('field', function(field, value) {
-        console.log(field, value);
-        fields.push([field, value]);
-      })
+          fields.push(value);
+        })
+        .on('file', function(field, file) {
+          files.push(file);
+        })
         .on('end', function() {
-          console.log('-> post done');
-          return fields;
+          if (files && files.length) {
+            ResponeSuccess(req, res, {files});
+          }
         });
-      form.parse(req);
+    }else {
+      res.send(fields) ;
     }
   }catch (error) {
-    
-    return HandleError(error);
+    res.send(error);
   }
 };
 
 module.exports = {
-  uploadImage
+  uploadFile
 };
   

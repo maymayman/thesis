@@ -1,12 +1,10 @@
-const {uploadImage} = require('../helper/upload');
+const {uploadFile} = require('../helper/upload');
 
 
 const upload = async function (req, res) {
   try {
     
-    let images = await uploadImage(req, res);
-    
-    return ResponeSuccess(req, res, {images});
+    await uploadFile(req, res);
     
   } catch (error) {
     
