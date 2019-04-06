@@ -16,7 +16,8 @@ const uploadFile = async function (req, res) {
           fields.push(value);
         })
         .on('file', function(field, file) {
-          files.push(file);
+          let link = file.path.slice(6);
+          files.push(link);
         })
         .on('end', function() {
           if (files && files.length) {
