@@ -10,5 +10,6 @@ router.use('/comments', require('./version1/comments'));
 router.use('/follows', require('./version1/follows'));
 router.use('/likes', require('./version1/likes'));
 router.use('/notifications', require('./version1/notifications'));
+router.use('/upload', require('./version1/upload'));
 
 module.exports = router;

@@ -16,6 +16,7 @@ ErrorCode = {
   TYPE_USER_INVALID: 1012,
   USER_COMPANY_INVALID: 1013,
   PERMISSION_DENIED: 1014,
+  URL_PATH_INVALID: 1015,
   
   PROJECT_TITLE_INVALID: 2001,
   PROJECT_DOES_NOT_EXISTS: 2002,
@@ -92,5 +93,6 @@ ErrorMessage = {
   [ErrorCode.NOTIFICATION_ID_IS_REQUIRE]: 'notificationId is require',
   [ErrorCode.IS_READ_TYPE_BOOLEAN]: 'is_read type is boolean',
   [ErrorCode.NOTIFICATION_NO_EXITS]: 'notification does not exists',
+  [ErrorCode.URL_PATH_INVALID]: 'path url invalid',
   
 };
