@@ -7,7 +7,7 @@ const numberSlice = public.length;
 
 const uploadFile = async function (req, res) {
   try {
-    var form = new formidable.IncomingForm();
+    const form = new formidable.IncomingForm();
     const fields = [];
     const files = [];
     form.uploadDir = uploadDir;
