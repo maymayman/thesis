@@ -1,6 +1,9 @@
 const formidable = require('formidable');
 const util = require('util');
-const uploadDir = './public/images';
+const fs = require('fs');
+const public = process.env.PUBLIC_FOLDER || '/public';
+const uploadDir = `.${public}/images`;
+const numberSlice = public.length;
 
 const uploadFile = async function (req, res) {
   try {
@@ -16,7 +19,10 @@ const uploadFile = async function (req, res) {
           fields.push(value);
         })
         .on('file', function(field, file) {
-          let link = file.path.slice(6);
+          let type = file.type.split('/')[1];
+          let newPath = file.path + "." + type;
+          fs.renameSync(file.path, newPath);
+          let link = newPath.slice(numberSlice);
           files.push(link);
         })
         .on('end', function() {
