@@ -1,12 +1,14 @@
 const { Projects } = require('../models');
 const { Donates } = require('../models');
+const {STATUS} = require('../config/const.js').USER;
 const {checkExitsProject} = require('../helper/utils.js');
 const {checkExitsCategory} = require('../helper/utils.js');
 const {checkExitsCountry} = require('../helper/utils.js');
 
 const getAllProjects = async function(query, limit, skip) {
   try {
-    
+  
+      query.status = STATUS.ACTIVE;
       const listProjects = await Projects.find(query).limit(limit).skip(skip);
       
       return listProjects;
@@ -53,6 +55,7 @@ const update = async function (_id, data) {
 
 const  countData = async function(filter) {
   try {
+    filter.status = STATUS.ACTIVE;
     const count = Projects.count(filter);
     
     return count;
