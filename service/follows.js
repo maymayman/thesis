@@ -64,7 +64,7 @@ const update = async function (_id, data) {
 
 const  countData = async function(filter) {
   try {
-    const count = Follows.count(filter);
+    const count = Follows.countDocuments(filter);
     
     return count;
     

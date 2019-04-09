@@ -4,8 +4,8 @@ const {validateBoolean} = require('../helper/utils.js');
 const getNotificationsOfUser = async function (req, res) {
   try {
     const user = req.user;
-    const limit = req.query.limit;
-    const skip = req.query.skip;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 20;
+    const skip = req.query.skip ? parseInt(req.query.skip) : 0;
     let count = 0;
     
     if ((!user || !user._id)) {

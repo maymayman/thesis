@@ -30,7 +30,7 @@ const create = async function (donate) {
 
 const  countData = async function(filter) {
   try {
-    const count = Donates.count(filter);
+    const count = Donates.countDocuments(filter);
     
     return count;
     
