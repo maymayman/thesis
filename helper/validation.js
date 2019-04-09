@@ -136,6 +136,7 @@ const validateProject = async function (data, user) {
         donationsCount: data.donationsCount || 0,
         amount: data.amount || 0,
         percent: data.percent || 0,
+        status: data.status || STATUS.ACTIVE
       }
     }
     
