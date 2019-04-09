@@ -56,7 +56,7 @@ const update = async function (_id, data) {
 
 const  countData = async function(filter) {
   try {
-    const count = Comments.count(filter);
+    const count = Comments.countDocuments(filter);
     
     return count;
     

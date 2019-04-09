@@ -3,8 +3,8 @@ const {validateCategory} = require('../helper/validation.js');
 
 const getAll = async function (req, res) {
   try {
-    const limit = req.query.limit || 20;
-    const skip = req.query.skip || 0;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 20;
+    const skip = req.query.skip ? parseInt(req.query.skip) : 0;
     let count = 0;
     
     count = await categoriesService.countData({});

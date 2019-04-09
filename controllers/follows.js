@@ -4,8 +4,8 @@ const {validateFollows} = require('../helper/validation');
 const getFollowsByProjectId = async function (req, res) {
   try {
     const projectId = req.query.projectId;
-    const limit = req.query.limit;
-    const skip = req.query.skip;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 20;
+    const skip = req.query.skip ? parseInt(req.query.skip) : 0;
     let count = 0;
     
     if (!projectId ) {
