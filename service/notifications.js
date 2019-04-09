@@ -124,7 +124,7 @@ const notificationToUserProject = async function (userDonate, project) {
 
 const  countData = async function(filter) {
   try {
-    const count = Notifications.count(filter);
+    const count = Notifications.countDocuments(filter);
     
     return count;
     

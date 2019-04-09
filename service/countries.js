@@ -47,7 +47,7 @@ const update = async function (_id, data) {
 
 const  countData = async function(filter) {
   try {
-    const count = Countries.count(filter);
+    const count = Countries.countDocuments(filter);
     
     return count;
     

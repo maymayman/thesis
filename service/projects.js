@@ -56,7 +56,7 @@ const update = async function (_id, data) {
 const  countData = async function(filter) {
   try {
     filter.status = STATUS.ACTIVE;
-    const count = Projects.count(filter);
+    const count = Projects.countDocuments(filter);
     
     return count;
     

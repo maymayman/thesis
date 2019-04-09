@@ -47,7 +47,7 @@ const update = async function (_id, data) {
 
 const  countData = async function(filter) {
   try {
-    const count = Categories.count(filter);
+    const count = Categories.countDocuments(filter);
     
     return count;
     

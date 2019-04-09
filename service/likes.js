@@ -51,7 +51,7 @@ const update = async function (_id, data) {
 
 const  countData = async function(filter) {
   try {
-    const count = Likes.count(filter);
+    const count = Likes.countDocuments(filter);
     
     return count;
     
