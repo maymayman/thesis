@@ -108,15 +108,76 @@ const update = async function (req, res) {
     return ResponeSuccess(req, res, {project});
     
   } catch (error) {
-    
     return ResponeError(req, res, error, error.message);
   }
 };
+
+const statistic = async function(req, res) {
+  try {
+    const year = req.query.year || new Date().getFullYear();
+    const pipeline = [
+      { $match: { 
+        $and: [
+          {createdAt: { $gte: new Date(year, 0, 1)}},
+          {createdAt: { $lt: new Date(year, 11, 31)}},
+          {status: {$eq: 'ACTIVE'}}
+        ]
+      }},
+      {$group: {
+        _id: { $dateToString: 
+          {format: "%Y-%m", date: "$createdAt"} }, 
+        count: {$sum: 1}
+      }}
+    ];
+
+    // const statistics = await projectsService.statistic(pipeline);
+   
+    // const results = []
+    // for (let i = 1; i <= 12; i++) {
+    //   const month = `${year}-${i < 10 ? ('0' + i.toString()) : i}`;
+    //   const newStatistic = { month, count: 0 };
+    //   statistics.forEach(statistic => {
+    //     if (month === statistic._id) {
+    //       newStatistic.count = statistic.count;
+    //     }
+    //   });
+    //   results.push(newStatistic);
+    // }
+
+    // const total = await projectsService.countData({});
+    // const statisticByCategories = await projectsService.statisticByCategories();
+    // const statisticByCountries = await projectsService.statisticByCountries();
+
+    const [statistics, total, statisticByCategories, statisticByCountries] = await Promise.all([
+      projectsService.statistic(pipeline),
+      projectsService.countData({}),
+      projectsService.statisticByCategories(),
+      projectsService.statisticByCountries()
+    ]);
+
+    const results = [];
+    for (let i = 1; i <= 12; i++) {
+      const month = `${year}-${i < 10 ? ('0' + i.toString()) : i}`;
+      const newStatistic = { month, count: 0 };
+      statistics.forEach(statistic => {
+        if (month === statistic._id) {
+          newStatistic.count = statistic.count;
+        }
+      });
+      results.push(newStatistic);
+    }
+
+    return ResponeSuccess(req, res, {statistics: results, total, statisticByCategories, statisticByCountries});
+  } catch (error) {
+    return ResponeError(req, res, error, error.message);
+  }
+}
 
 
 module.exports = {
   getAll,
   getAllOfMe,
   create,
-  update
+  update,
+  statistic
 };
