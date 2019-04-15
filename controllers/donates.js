@@ -15,8 +15,9 @@ const getByProjectId = async function (req, res) {
     const projectId = req.params.projectId;
     
     const donate = await DonateService.getDonate({projectId} , limit, skip);
+    const count = await DonateService.countData({projectId});
   
-    return ResponeSuccess(req, res, {donate});
+    return ResponeSuccess(req, res, {donate, total: count});
   
   }catch (error) {
     return ResponeError(req, res, error, error.message);
