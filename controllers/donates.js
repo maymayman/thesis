@@ -10,13 +10,11 @@ const { ROLE, STATUS_TYPE, STATUS} = require('../config/const').USER;
 const getByProjectId = async function (req, res) {
   try {
     const user = req.user;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 20;
+    const skip = req.query.skip ? parseInt(req.query.skip) : 0;
     const projectId = req.params.projectId;
-    if (!user || !projectId){
-      
-      return ResponeSuccess(req, res, {});
-    }
     
-    const donate = await DonateService.getDonate(projectId);
+    const donate = await DonateService.getDonate({projectId} , limit, skip);
   
     return ResponeSuccess(req, res, {donate});
   
