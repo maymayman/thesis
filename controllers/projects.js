@@ -9,10 +9,15 @@ const getAll = async function (req, res) {
     const limit = req.query.limit ? parseInt(req.query.limit) : 20;
     const skip = req.query.skip ? parseInt(req.query.skip) : 0;
     const categoryId = req.query.categoryId || '';
+    const countryId = req.query.countryId || '';
     const match = {};
     
     if (categoryId) {
       match.categoryId = categoryId;
+    }
+
+    if (countryId) {
+      match.countryId = countryId;
     }
   
     const count = await projectsService.countData(match);
